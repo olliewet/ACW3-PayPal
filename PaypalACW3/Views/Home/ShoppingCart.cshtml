@@ -40,9 +40,6 @@
                         <td><a asp-controller="Home" asp-action="RemoveItemFromCart" asp-route-productID="@item.Id" class="badge badge-danger px-3 rounded-pill font-weight-normal" style="color:white">Remove</a></td>
                     </tr>
                 }
-                
-
-
             </tbody>
         </table>
     </article>
@@ -60,10 +57,8 @@
             Total = totalCartCount;
             <h5 style="text-align: center;">Basket Total : £@totalCartCount </h5>
            
-                <a style="display: flex; justify-content:center;align-items: center;height: 60px; width: 750px; margin-left: 180px; margin-bottom: 10px; " class="btn btn-success" asp-controller="Home" asp-action="Invoice" asp-route-orderId="" asp-route-name="@name" asp-route-totalprice="@totalCartCount" >Pay by Cash</a>   
-           
-
-                }
+                <a style="display: flex; justify-content:center;align-items: center;height: 60px; width: 750px; margin-left: 180px; margin-bottom: 10px; " class="btn btn-success" asp-controller="Home" asp-action="Invoice" asp-route-orderId="" asp-route-name="@name" asp-route-totalprice="@totalCartCount" >Pay by Cash</a>
+        }
 
 
 
@@ -88,6 +83,7 @@
         return total;
     }
 
+    //Paypal Implementation using JavaScript, there is code in the paypal folder that has all the methods to implement it through ASP.Net however it would not process the request 
     function initPayPalButton() {
         paypal.Buttons({
             style: {
