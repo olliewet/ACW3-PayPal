@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model Invoice
+@{
+    ViewData["Title"] = "Invoice";
+}
+<h1>@ViewData["Title"]</h1>
+@{
+
+}
+
+<html>
+
+<body>
+
+
+    <!--- Total Price Table -->
+    <article class="tile notification is-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; margin-left: 15px;">
+        <table class="table">
+            <thead>
+                <tr>
+
+
+                    <th scope="col"> Name</th>
+
+                    @if (Model.PayPalOrderID != null)
+                    {
+                        <th scope="col">Paypal Order ID</th>
+                    }
+                    <th scope="col">Invoice Number </th>
+                    <th scope="col">Amount Payed </th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                    <td>@Model.Name </td>
+                    @if (Model.PayPalOrderID != null)
+                    {
+                        <td>@Model.PayPalOrderID </td>
+                    }
+                    <td>@Model.invoiceNumber </td>
+                    <td>£@Model.amountPayed </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </article>
+
+</body>
+</html>

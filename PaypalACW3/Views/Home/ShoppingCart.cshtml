@@ -1,0 +1,173 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ShoppingCart
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+<h1>@ViewData["Title"]</h1>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@{
+    var count = Model._ShoppingCartList.Count;
+    double Total = 0; 
+
+}
+
+<html>
+
+<body>
+
+
+    <!--- Total Price Table -->
+    <article class="tile notification is-white" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; margin-left: 15px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Items</th>
+                    <th scope="col">Price</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model._ShoppingCartList)
+                {
+                    <tr>
+                        <td>@item.Name </td>
+                        <td>@item.Price</td>
+                        <td><a asp-controller="Home" asp-action="RemoveItemFromCart" asp-route-productID="@item.Id" class="badge badge-danger px-3 rounded-pill font-weight-normal" style="color:white">Remove</a></td>
+                    </tr>
+                }
+                
+
+
+            </tbody>
+        </table>
+    </article>
+
+
+
+    <div id="smart-button-container">
+        <a asp-controller="Home" asp-action="RemoveAllFromCart" id="removebtn" class="badge badge-danger px-3 rounded-pill font-weight-normal" style="color:white">Remove All from Cart</a>
+                            
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var user = await UserManager.GetUserAsync(User);
+            var name = user.FirstName;
+            var totalCartCount = user.ShoppingCartGetTotal();
+            Total = totalCartCount;
+            <h5 style="text-align: center;">Basket Total : £@totalCartCount </h5>
+           
+                <a style="display: flex; justify-content:center;align-items: center;height: 60px; width: 750px; margin-left: 180px; margin-bottom: 10px; " class="btn btn-success" asp-controller="Home" asp-action="Invoice" asp-route-orderId="" asp-route-name="@name" asp-route-totalprice="@totalCartCount" >Pay by Cash</a>   
+           
+
+                }
+
+
+
+        <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+
+</body>
+</html> 
+
+<script src="https://www.paypal.com/sdk/js?client-id=AYUMEewur6ChNqBT-8Rlq1c7PC2QX9rA8rVaUZ3Ntx6i8UQjQdMFgbNarkH9fY5IJ52CYps1pTNpIpyE&currency=GBP" data-sdk-integration-source="button-factory"></script>
+<script>
+    if (@count == 0) {
+        var elem = document.getElementById('removebtn');
+        elem.style.visibility = 'hidden';
+
+    }
+
+    function countCartTotal() {
+        var total = @Total;
+        return total;
+    }
+
+    function initPayPalButton() {
+        paypal.Buttons({
+            style: {
+                shape: 'rect',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'paypal'
+
+            },
+
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                           
+                            reference_id: "Hull.University.Cafe",
+                            description: "Hull University Cafe",
+
+                            
+                            custom_id: "HullUniversityCafeID",
+                            amount: {
+                                currency_code: "GBP",
+                                value: "@Total",
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: "GBP",
+                                        value: "@Total"
+                                    }
+                                }
+                            },
+                            items: [
+                                @foreach (var product in Model._ShoppingCartList)
+                                {
+                                    @:{
+                                    @:name: '@product.Name',
+                                    @:SKU: 'UniCatering-@product.Id',
+                                    @:unit_amount: {
+                                    @:    currency_code: 'GBP',
+                                    @:    value: @product.Price.ToString("##.###")
+                                    @:},
+                                    @:quantity: "1",
+                                    @:},
+                                }
+                            ]
+                        }
+                    ]
+                });
+            },
+
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function (details) {
+                    /*
+                    Used initially instead of the invoices to alert the customer 
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                   
+                    console.log(JSON.stringify(details)); (Used for testing to display all the information provided by paypal)
+                    */
+                    var name = details.payer.name.given_name;
+                    var payPalOrderID = details.id;
+
+                    //Empty the shopping cart for next time
+                    document.getElementById('removebtn').click();
+
+                    //redirect the user to new invoice page 
+                    var url = '/Home/Invoice?orderId=' + payPalOrderID + '&name=' + name + '&totalprice=' + countCartTotal();
+                    window.location.href = url;
+                });
+            },
+
+            onCancel: function(data) {
+                //return to cart
+            },
+
+            onError: function(err) {
+                console.log(err);
+            }
+        }).render('#paypal-button-container');
+    }
+
+  
+    initPayPalButton();
+</script>
+
