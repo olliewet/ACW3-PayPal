@@ -1,0 +1,1 @@
+SELECT * FROM [aspnet-PaypalACW3-5D56D294-A2C4-4E10-B7FD-0E60B771D6A7].dbo.AspNetUsers.[_ShoppingCart]

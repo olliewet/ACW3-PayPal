@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\PaypalACW3\\PaypalACW3.csproj": {}
+    "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\ACW3PayPal\\PaypalACW3\\PaypalACW3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\PaypalACW3\\PaypalACW3.csproj": {
+    "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\ACW3PayPal\\PaypalACW3\\PaypalACW3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\PaypalACW3\\PaypalACW3.csproj",
+        "projectUniqueName": "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\ACW3PayPal\\PaypalACW3\\PaypalACW3.csproj",
         "projectName": "PaypalACW3",
-        "projectPath": "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\PaypalACW3\\PaypalACW3.csproj",
+        "projectPath": "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\ACW3PayPal\\PaypalACW3\\PaypalACW3.csproj",
         "packagesPath": "C:\\Users\\Ollie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\PaypalACW3\\obj\\",
+        "outputPath": "C:\\Users\\Ollie\\Desktop\\Work\\Year 4\\TrustWorthy Computing\\ACW 3\\PaypalACW3\\ACW3PayPal\\PaypalACW3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
